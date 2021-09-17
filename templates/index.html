@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block page_title %} Url Shortener{% endblock page_title %}
+
+{% block page_content %}
+{% if updated %} <h1>ITEM UPDATED</h1> {% endif %}
+<h1 class='text-center mt-4 text-light'>URL Shrotener by dp</h1>
+{% if res %} <h1>{{res}}</h1>{% endif %}
+    <div class='container mt-5'>
+        <form class='form-control p-3'action="/" method='POST'>
+            {% csrf_token %}
+            <input class="form-control mb-2 bg-light " id="url" aria-describedby="url"required type="text" name='url' placeholder="Shorten URL">
+            <input class='btn btn-primary d-flex justify-content-center align-items-center'href="/" type='submit' name='submit'>
+        </form>
+    </div>
+    <div class='container d-flex justify-content-center flex-column align-items-center'>
+        {% if full_url %} 
+            <h1 class='text-white pt-3'>Shortened {{full_url}}: <a href="{% url 'redirecter' short_url %}">{{short_url}}</a><a class='btn btn-danger mx-3'href="{% url 'delete' short_url %}">Delete</a></h1>
+        {% endif %}
+    </div>
+    <div class="link-table container mt-5">
+        <table class="table table-striped table-dark table-hover border">
+            <thead class="table-light">
+                <tr>
+                    <th>Full URL</th>
+                    <th>Short URL</th>
+                    <th>Remove/Edit</th>
+                </tr>
+            </thead>
+            <tbody class=''>
+                {% for url in url %}
+                <tr>      
+                    <td>{{url.url}}</td>
+                    <td><a class='btn btn-success'href="{% url 'redirecter' url.short_url %}">{{url.short_url}}</a></td>
+                    <td><a class='btn btn-danger'href="{% url 'delete' url.short_url %}">Delete</a><a class='btn btn-info mx-2 text-white'href="{% url 'edit' url.short_url %}">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock page_content %}
