@@ -8,7 +8,7 @@
         <form class='form-control'action="./{{data.short_url}}" method='POST'>
             <h2 class="text-center m-3 text-dark">Edit <span class='text-primary'>{{data.url}}</span></h2>
             {% csrf_token %}
-            <input placeholder = 'Full Url'class="form-control m-2 bg-light " id="url" aria-describedby="url"required type="text" name='url'value={{data.url}}>
+            <input required placeholder = 'Full Url'class="form-control m-2 bg-light " id="url" aria-describedby="url"required type="text" name='url'value={{data.url}}>
             <input placeholder = 'Short Url' type="text" class="form-control m-2 bg-light" name='short_url' readonly value={{data.short_url}}>
             <input class='btn btn-success m-2' type='submit' name='submit' value='Save'>
         </form>
