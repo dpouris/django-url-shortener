@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from .utils import shortenURL
+from .utils import shortenURL, update
 from .models import URL
 from django.http import HttpResponseRedirect
 
@@ -29,7 +28,6 @@ def redirecter(request, short):
     print(url)
     return HttpResponseRedirect(url.url)
 
-
 def delete(request,short):
     url = URL.objects.get(short_url = short)
     url.delete()
@@ -38,13 +36,8 @@ def delete(request,short):
 def edit(request, item):
     url = URL.objects.get(short_url=item)
     if request.method == 'POST':
-        update(request,item)
+        update(request,item,URL)
         return redirect('/')
     return render(request,'edit.html',{
         'data' : url
     })
-
-def update(request,short_url):
-    url = request.POST.get('url')
-    URL.objects.filter(short_url=short_url).update(url=url)
-    
