@@ -9,13 +9,12 @@ def shorten(request):
     full_url = ''
     short_url = ''
     if request.method == "POST" and request.POST.get('url') != '':
+        full_url = URL.objects.create(url=request.POST.get('url'))
         try:
-            full_url = URL.objects.create(url=request.POST.get('url'))
             short_url = shortenURL(full_url.id)
             full_url.short_url = short_url
             full_url.save()
         except :
-            full_url = URL.objects.get(url=request.POST.get('url'))
             short_url = full_url.short_url
     return render(request,'index.html', {
         'full_url' : full_url,
