@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
+    <link rel="stylesheet" href="{% static 'global.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <title>{% block page_title %}{% endblock page_title %}</title>
 </head>
 <body class='bg-dark'>
+<button class="btn btn-light m-4 fixed-top" id='theme' onclick='themeSwapper();'><i class="fas fa-adjust"></i></button>
 {% block page_content %}
 
 
 {% endblock page_content %}
 </body>
+<script>
+    function themeSwapper(){
+        document.querySelector('#theme').classList.toggle('btn-light')
+        document.querySelector('#theme').classList.toggle('btn-dark')
+        document.body.classList.toggle('bg-dark')
+        document.querySelector('#title').classList.toggle('text-light')
+    }
+</script>
 </html>
