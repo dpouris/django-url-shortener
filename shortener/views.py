@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .utils import shortenURL, update
+from .utils import shortenURL, update, check_valid_url
 from .models import URL
 from django.http import HttpResponseRedirect
 
@@ -8,14 +8,15 @@ from django.http import HttpResponseRedirect
 def shorten(request):
     full_url = ''
     short_url = ''
-    if request.method == "POST" and request.POST.get('url') != '':
-        try:
-            full_url = URL.objects.create(url=request.POST.get('url'))
+    if request.method == "POST":
+        user_url = check_valid_url(request.POST.get('url'))
+        if not URL.objects.filter(url=user_url):
+            full_url = URL.objects.create(url=user_url)
             short_url = shortenURL(full_url.id)
             full_url.short_url = short_url
             full_url.save()
-        except :
-            full_url = URL.objects.get(url=request.POST.get('url'))
+        else:
+            full_url = URL.objects.get(url=user_url)
             short_url = full_url.short_url
     return render(request,'index.html', {
         'full_url' : full_url,

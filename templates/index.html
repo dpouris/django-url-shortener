@@ -8,19 +8,24 @@
     <div class='container mt-5'>
         <form class='form-control p-3'action="/" method='POST'>
             {% csrf_token %}
-            <input class="form-control mb-2 bg-light " id="url" aria-describedby="url" required type="url" name='url' placeholder="Shorten URL" value='https://'>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">https://</span>
+                <input type="text" class="form-control bg-light" id="basic-url" aria-describedby="basic-addon3" required type="url" name='url' placeholder="Shorten URL">
+            </div>
+            {% comment %} <input class="form-control mb-2 bg-light " id="url" aria-describedby="url" required type="url" name='url' placeholder="Shorten URL" value='https://'> {% endcomment %}
             <input class='btn btn-primary d-flex justify-content-center align-items-center'href="/" type='submit' name='submit'>
         </form>
     </div>
     <div class='container d-flex justify-content-center flex-column align-items-center'>
         {% if full_url %} 
-            <h1 class='text-white pt-3'>Shortened {{full_url}}: <a href="{% url 'redirecter' short_url %}">{{short_url}}</a><a class='btn btn-danger mx-3'href="{% url 'delete' short_url %}">Delete</a></h1>
+            <h1 class='text-white pt-3'>Shortened <span class='text-primary'>{{full_url}}</span>: <a href="{% url 'redirecter' short_url %}">{{short_url}}</a><a class='btn btn-danger mx-3'href="{% url 'delete' short_url %}"><i class="fas fa-times"></i></a></h1>
         {% endif %}
     </div>
     <div class="link-table container mt-5">
         <table style = "table-layout:fixed;"class="table table-striped table-dark table-hover border">
             <thead class="table-light">
                 <tr>
+                    {% comment %} <th><input type="checkbox" name="" id=""></th> {% endcomment %}
                     <th style='max-width:10px'>Full URL</th>
                     <th>Short URL</th>
                     <th>Remove/Edit</th>
@@ -28,10 +33,11 @@
             </thead>
             <tbody class=''>
                 {% for url in url %}
-                <tr>      
+                <tr>
+                    {% comment %} <td><input type="checkbox" name="" id=""></td>     {% endcomment %}
                     <td>{{url.url}}</td>
                     <td><a class='btn btn-success'href="{% url 'redirecter' url.short_url %}">{{url.short_url}}</a></td>
-                    <td><a class='btn btn-danger'href="{% url 'delete' url.short_url %}">Delete</a><a class='btn btn-info mx-2 text-white'href="{% url 'edit' url.short_url %}">Edit</a></td>
+                    <td><a class='btn btn-danger'href="{% url 'delete' url.short_url %}">Delete</a><a class='btn btn-primary mx-2 text-white'href="{% url 'edit' url.short_url %}">Edit</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
