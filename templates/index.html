@@ -18,7 +18,7 @@
     </div>
     <div class='container d-flex justify-content-center flex-column align-items-center'>
         {% if full_url %} 
-            <h1 class='text-white pt-3'>Shortened <span class='text-primary'>{{full_url}}</span>: <a href="{% url 'redirecter' short_url %}">{{short_url}}</a><a class='btn btn-danger mx-3'href="{% url 'delete' short_url %}"><i class="fas fa-times"></i></a></h1>
+            <h1 class='text-white pt-3'>Shortened <span class='text-primary'>{{full_url}}</span>: <a class="btn btn-success" href="{% url 'redirecter' short_url %}">{{short_url}}</a><a class='btn btn-danger mx-3'href="{% url 'delete' short_url %}"><i class="fas fa-times"></i></a></h1>
         {% endif %}
     </div>
     <div class="link-table container mt-5">
